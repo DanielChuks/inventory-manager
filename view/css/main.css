@@ -1,0 +1,59 @@
+.page-container{
+    height: auto;
+    margin: 0 auto;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+li {
+    float: right;
+    font-size: 17px;
+    font-family:'Montserrat', sans-serif;
+    color: black;
+    background: white;
+    font-weight: bold;
+    opacity: 0.7
+}
+li a {
+    display: block;
+    text-align: center;
+    color: black;
+    padding: 14px 16px;
+    text-decoration: none;
+    border-right: 1px solid grey;
+    border-left: 1px solid grey;
+}
+li:last-child{
+    color: white;
+    background: black;
+    float: left;
+    opacity: 1;
+}
+#home{
+    color: white;
+}
+.active{
+    color: white;
+    background: black;
+}
+li:not(last-child):hover{
+    opacity:1
+}
+
+/********BACKGROUND IMAGE********/
+.back {
+  position: relative;
+  background: url("../img/rough.jpg")no-repeat 20% 67%;
+}
+.back.header {
+    height: auto;
+    width:100%;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
