@@ -1,0 +1,27 @@
+{
+  "name": "inventory-manager",
+  "version": "1.0.0",
+  "description": "An app that helps an organization to manage their office assets.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/obinnaeye/inventory-manager.git"
+  },
+  "keywords": [
+    "inventory",
+    "manager",
+    "management"
+  ],
+  "author": "Nnenanya O.K",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/obinnaeye/inventory-manager/issues"
+  },
+  "homepage": "https://github.com/obinnaeye/inventory-manager#readme",
+  "dependencies": {
+    "express": "^4.15.2"
+  }
+}
