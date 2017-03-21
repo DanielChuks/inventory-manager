@@ -1,11 +1,5 @@
 
-  //DOM objects
-  //const submitButton = document.getElementById("submit-signup");
-  
-  //add eventListeners
- // submitButton.addEventListener('click', singUp(), false);
-  
-  //Sign Up, post form data to server
+  //Login, post login data to server and redirect or respond accordingly
   function login(){
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
