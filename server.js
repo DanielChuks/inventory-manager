@@ -1,15 +1,20 @@
+//load my env file
+    require('dotenv').load();
 const express = require("express");
 const routes = require("./routes/routes.js");
-const path = require('path')
-
+const path = require('path');
+const mongoose = require("mongoose");
+const MONGODB_URI=process.env.MONGODB_URI;
 const app = express();
 
-//app.use('/public', express.static(process.cwd() + '/public'));
-app.use(express.static(path.join(__dirname, 'public')));
+mongoose.connect(MONGODB_URI);
 
-/*app.use('/control', express.static(process.cwd() + '/control'));
-app.use('/view', express.static(process.cwd() + '/view'));
-app.use('/common', express.static(process.cwd() + '/common'));*/
+//middleware for static files
+app.use(express.static(path.join(__dirname, 'public')));
+app.use('/control', express.static(process.cwd() + '/control'));
+app.use('/common', express.static(process.cwd() + '/common'));
+
+
 
 routes(app);
 

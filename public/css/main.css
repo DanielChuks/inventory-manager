@@ -57,3 +57,18 @@ li:not(last-child):hover{
     -o-background-size: cover;
     background-size: cover;
 }
+
+/*********AUTH**********/
+.auth-container{
+  width: 600px;
+  min-height: 300px;
+  background: #F5CBA7;
+  margin: 40px auto;
+  text-align: center;
+  padding: 50px;
+  border-radius: 50px;
+}
+.auth-content{
+  margin: 0 auto;
+  width: 400px;
+}

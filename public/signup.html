@@ -1,0 +1,58 @@
+<html>
+   <head>
+      <title>Andelasset</title>
+      <link rel="icon" type="image/x-icon" href="img/favicon.ico">
+      <link href="https://fonts.googleapis.com/css?family=Cabin+Sketch|Josefin+Slab|Khand|Marck+Script|Monoton|Poiret+One|Rajdhani|Special+Elite|VT323" rel="stylesheet">      
+      <link href="css/main.css" rel="stylesheet" type="text/css">
+   </head>
+   <body>
+     <header>
+         <div class="back header">
+             <ul>                     
+                <li><a href="#" id="login">Log Out</a></li>
+                <li><a href="#" id="signup">Add Admin</a></li>
+                <li><a href="#" id="home">AndelAsset</a></li>
+              </ul>        
+          </div>
+     </header>
+     <div class="auth-container">
+        <div class="auth-content">
+           <form action="javascript:" onsubmit="singUp()">
+              <fieldset>
+                 <legend>New User Details:</legend>
+                 First Name:
+                 <input id="firstname" type="text" name="firstname" value=""><br><br>
+                 Last Name:
+                 <input id="lastname" type="text" name="lastname" value=""><br><br>
+                 Username:
+                 <input id="username" type="text" name="username" value=""><br><br>
+                 Password:
+                 <input id="password" type="password" name="password" value=""><br><br>
+                 Staff Code:
+                 <input id="staffcode" type="text" name="staffcode" value=""><br><br>
+                 Department:
+                 <select name="department" required class="poll-selection" id = "department">
+                  <option value="" disabled selected hidden>Select Your Department</option>
+                  <option value="Operations and Facilities">Operations and Facilities</option>
+                  <option value="Marketing">Marketing</option>
+                  <option value="Training">Training</option>
+                  <option value="Others">Others</option>
+                 </select><br>
+                 <br><br>
+                 Account Type:
+                 <select name="acounttype" required class="poll-selection" id = "accounttype">
+                  <option value="" disabled selected hidden>Select Your Account Type</option>
+                  <option value="super">Super Admin</option>
+                  <option value="ordinary">Normal</option>
+                 </select><br>
+                 <br><br>
+                 <input type="submit" class="submit-signup" value="Sign Up">
+              </fieldset>
+           </form>
+        </div>
+     </div>
+     
+     <script type="text/javascript" src="/common/ajax-functions.js"></script>
+     <script type="text/javascript" src="/control/userControl.login.js"></script>
+   </body>
+</html>
