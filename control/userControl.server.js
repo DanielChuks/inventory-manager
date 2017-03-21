@@ -1,6 +1,6 @@
 'use strict';
-var path = process.cwd();
-var Users = require(path + '/model/users.js');
+const path = process.cwd();
+const Users = require(path + '/model/users.js');
 
 
 function UserHandler() {
@@ -55,7 +55,20 @@ function UserHandler() {
   
   //log users in using the proper authentications
   this.login = function(req, res){
-    console.log("Login")
+    const query = req.query;
+    const username = query.username;
+    const password = query.password;
+    Users.findOne({username: username, password: password})
+      .exec(function(err, result){
+        if(err)throw err;
+        if(!result){
+          console.log("Wrong user details.");
+          res.send("false");
+        }else{
+          console.log("Welcome user");
+          res.send("true");
+        }
+      })
   }
 }
 
