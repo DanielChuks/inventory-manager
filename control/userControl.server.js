@@ -16,8 +16,9 @@ function UserHandler() {
       staffcode : query.staffcode
     }
     
-    Users.findOne({$or: [{username: data.username},{staffcode: data.staffcode},{accounttype: data.accounttype}]})
+    Users.findOne({$or: [{username: data.username},{staffcode: data.staffcode},{$and: [{accounttype: "superadmin"}, {accounttype: data.accounttype}]}]})
       .exec(function(err, result) {
+        console.log(result)
         if (err)throw err
       
         if(!result){
@@ -34,14 +35,14 @@ function UserHandler() {
         else{
           if(result.username === data.username){
             console.log('User already exists, can not re-add.')
-            res.send("username").status(422);
-          }else if(result.accounttype === data.accounttype){
+            res.send("username");
+          }else if(result.accounttype === data.accounttype && data.accounttype === "superadmin"){
             console.log("A super-admin already exists!");
-            res.send("accounttype").status(422);
+            res.send("accounttype");
           }
           else{
             console.log("Your Staff Code is already registered!");
-            res.send("staffcode").status(422);
+            res.send("staffcode");
           }
           
         }
@@ -49,6 +50,12 @@ function UserHandler() {
     })
     
     
+  }
+  
+  
+  //log users in using the proper authentications
+  this.login = function(req, res){
+    console.log("Login")
   }
 }
 

@@ -61,7 +61,7 @@ li:not(last-child):hover{
 /*********AUTH**********/
 .auth-container{
   width: 600px;
-  min-height: 300px;
+  height: auto;
   background: #F5CBA7;
   margin: 40px auto;
   text-align: center;

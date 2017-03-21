@@ -9,11 +9,6 @@ const UserHandler = require("../control/userControl.server.js");
 const MIN_PASSWORD_LENGTH = 8;
 const MAX_PASSWORD_LENGTH = 160;
 
-
-
-
-
-
 module.exports = function(app){
   const userHandler = new UserHandler();
   app.route("/")
@@ -28,10 +23,12 @@ module.exports = function(app){
     })
     .post(userHandler.signup);
     
-  
-  
-  
-  
+  app.route("/login")
+    .get(function(req, res){
+      res.sendFile(path + "/public/login.html");
+    })
+    .post(userHandler.login);
+    
   
   
 };
