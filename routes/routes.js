@@ -18,7 +18,7 @@ module.exports = function(app){
   app.route("/")
     .get(function(req, res){
       console.log("Ok")
-      res.sendFile(path + "/view/index.html");
+      res.sendFile(path + "/public/index.html");
     });
   
 
