@@ -62,14 +62,31 @@ function UserHandler() {
       .exec(function(err, result){
         if(err)throw err;
         if(!result){
-          console.log("Wrong user details.");
-          res.send("false");
+          console.log('Wrong user details.');
+          res.send('false');
         }else{
-          console.log("Welcome user");
-          res.send("true");
+          if(result.accounttype === 'superadmin'){
+            console.log('Super');
+            res.send('SUPER');
+            //redirect to superadmin
+          }else if(result.accounttype === 'admin'){
+            console.log('Admin');
+            res.send('Adim');
+            //redirect to admin page
+          }else{
+            console.log('Ord')
+            res.send("ORD");
+            //redirect to normal user page
+          }
+          
         }
-      })
+      });
+  };
+  
+  this.superAdmin = function(req, res){
+    
   }
+  
 }
 
 
