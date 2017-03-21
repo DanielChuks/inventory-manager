@@ -28,6 +28,10 @@ module.exports = function(app){
       res.sendFile(path + "/public/login.html");
     })
     .post(userHandler.login);
+  
+  app.route('/:username/admin/super')
+    .get(userHandler.superAdmin);
+    
     
   
   

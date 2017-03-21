@@ -67,15 +67,15 @@ function UserHandler() {
         }else{
           if(result.accounttype === 'superadmin'){
             console.log('Super');
-            res.send('SUPER');
+            res.redirect('/:username/admin/super')
             //redirect to superadmin
           }else if(result.accounttype === 'admin'){
             console.log('Admin');
-            res.send('Adim');
+            res.redirect('/:username/admin');
             //redirect to admin page
           }else{
             console.log('Ord')
-            res.send("ORD");
+            res.redirect('/:username');
             //redirect to normal user page
           }
           
@@ -84,8 +84,58 @@ function UserHandler() {
   };
   
   this.superAdmin = function(req, res){
+    const username = req.params.username;
+    function pageLoader(obj){
+      const fullPage = "";
+      //const str = JSON.stringify(obj, replacer);
+      
+      const head = `<head><title>Andelasset</title><link rel="icon" type="image/x-icon" href="img/favicon.ico">`+
+        `<link href="https://fonts.googleapis.com/css?family=Cabin+Sketch|Josefin+Slab|Khand|Marck+Script|Monoton|Poiret+One|Rajdhani|Special+Elite|VT323" rel="stylesheet">`+
+        `<link href="css/main.css" rel="stylesheet" type="text/css"></head>`,
+          htmlOpen = `<html>`,
+          htmlClose = `</html>`,
+          bodyOpen = `<body>`,
+          bodyClose = `</body>`,
+          header =`<header><div class="back header"><ul><li><a href="#" id="logout">Log Out</a></li>`+
+            `<li><a href="#" id="profile">${obj.firstname}</a></li></ul></div></header>`+
+            `<li><a href="#" id="home">AndelAsset</a></li></ul></div></header>`,
+          scripts = `<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>`+
+                  `<script type="text/javascript" src="/controllers/googleLoader.client.js"></script></head>`+
+                  `<script type="text/javascript" src="/common/ajax-functions.js"></script>` +
+                  `<script type="text/javascript" src="/controllers/pollLinkCont.client.js"></script>`+
+                  `<script type="text/javascript" src="/controllers/sessionCont.client.js"></script>`;
+          
+                  
+          
+          
+          fullPage = htmlOpen + head  + header + bodyOpen +  htmlClose + scripts + bodyClose + htmlClose;
+          res.send(fullPage);
+        }
+        
     
-  }
+    //use replacer function to deal with spaces in stringify
+    function replacer(key, value) {
+      // Filtering out properties
+      if (typeof value === 'string') {
+        const arr = value.split(" ");
+        const str = arr.join("---");
+        return str;
+      }
+      return value;
+    }
+    
+    Users.findOne({username}).exec(function(err, result){
+      if(err){throw err}
+      if(!result){
+        res.redirect('/login');
+      }else{
+        pageLoader(result);
+      }
+    });
+  };
+  
+  
+  
   
 }
 
