@@ -16,25 +16,36 @@ function UserHandler() {
       staffcode : query.staffcode
     }
     
-    Users.findOne({username : data.username}).exec(function(err, result) {
-      if (err){throw err}
-      else{
+    Users.findOne({$or: [{username: data.username},{staffcode: data.staffcode},{accounttype: data.accounttype}]})
+      .exec(function(err, result) {
+        if (err)throw err
+      
         if(!result){
-          console.log('Good to go')
+          console.log(`New user, ${data.firstname} has been created!`);
           const newUser = new Users(data);
           newUser.save(function(err){
             if(err){throw err}
             else{
-              res.send(data.accounttype + data.department);
+              res.status(200).send("success");
             }
           })
           
         }
         else{
-          console.log('something is wrong')
-          res.send("User Already Exists")
+          if(result.username === data.username){
+            console.log('User already exists, can not re-add.')
+            res.send("username").status(422);
+          }else if(result.accounttype === data.accounttype){
+            console.log("A super-admin already exists!");
+            res.send("accounttype").status(422);
+          }
+          else{
+            console.log("Your Staff Code is already registered!");
+            res.send("staffcode").status(422);
+          }
+          
         }
-      }
+        
     })
     
     
