@@ -14,7 +14,7 @@
     const accounttype = document.getElementById('accounttype').value;
     const department = document.getElementById('department').value;
     const staffcode = document.getElementById('staffcode').value;
-    console.log(appUrl)
+    
     const url = appUrl + `/signup?username=${username}&password=${password}&firstname=${firstname}&lastname=${lastname}&accounttype=${accounttype}&department=${department}&staffcode=${staffcode}`;
       
       ajaxFunctions.ajaxRequest("POST", url, function(data){

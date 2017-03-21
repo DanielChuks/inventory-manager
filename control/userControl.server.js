@@ -21,11 +21,18 @@ function UserHandler() {
       else{
         if(!result){
           console.log('Good to go')
-          res.send(data.accounttype + data.department);
+          const newUser = new Users(data);
+          newUser.save(function(err){
+            if(err){throw err}
+            else{
+              res.send(data.accounttype + data.department);
+            }
+          })
+          
         }
         else{
           console.log('something is wrong')
-          res.send("something is wrong")
+          res.send("User Already Exists")
         }
       }
     })
