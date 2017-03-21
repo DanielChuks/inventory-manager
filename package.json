@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/obinnaeye/inventory-manager#readme",
   "dependencies": {
+    "argon2-ffi": "^1.0.1",
     "express": "^4.15.2"
   }
 }
