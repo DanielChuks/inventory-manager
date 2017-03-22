@@ -45,11 +45,11 @@ module.exports = function(app, passport){
     .get(assetHander.addAsset)
     .post(assetHander.addAsset);
     
-  /*app.route('/api/assignasset')
-    .get()
-    .post();
+  app.route('/api/assignasset')
+    .get(assetHander.assignAsset)
+    .post(assetHander.assignAsset);
     
-  app.route('/api/unassignasset')
+  /*app.route('/api/unassignasset')
     .get()
     .post();
   
@@ -59,8 +59,8 @@ module.exports = function(app, passport){
     
   app.route('/api/asset')
     .get()
-    .post();*/
-    
+    .post();
+    */
     
     
 };

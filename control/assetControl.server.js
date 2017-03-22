@@ -1,6 +1,7 @@
 'use strict';
 const path = process.cwd();
 const Asset = require(path + '/model/assets.js');
+const User = require(path + '/model/users.js');
 
 
 function AssetHandler() {
@@ -9,17 +10,18 @@ function AssetHandler() {
     const asset = {
         name : query.name,
         description : query.description,
-        serialnumber : query.serialnumber,
+        serialnumber : Number(query.serialnumber),
         serialcode : query.serialcode,
         purchasedate : query.purchasedate,
         available : true,
         assignedto: ''
       };
     
-    Asset.findOne({$or:[{serialnumber : asset.serialnumber}, {serialcode : asset.serialcode}]})
-      .exec(function(err, result){
+    Asset.findOne({serialcode : asset.serialcode},
+      function(err, result){
         if (err) throw err;
         if(result){
+          console.log(result);
           res.send('false');
         }else{
           const newAsset = new Asset(asset);
@@ -31,16 +33,31 @@ function AssetHandler() {
       });
   };
   
-  this.assingAsset = function(req, res){
+  this.assignAsset = function(req, res){
     const query = req.query;
     const serial = query.serial;
     const assignee = query.assignee;
     
-    Asset.findOneAndUpdate({serialnumber : serial}, { $set: [{ assingneto : assignee }, { available : false }] }, { upsert: true },
-      function(err){
-        if (err) throw err;
-        res.send('true');
-      });
+    User.findOne({username:assignee})
+      .exec(function(err, data){
+        if (err) throw err
+        if(!data){
+          res.send("no user");
+        }
+        else{
+          Asset.findOneAndUpdate({$and: [{serialnumber : serial}, {available : true}]}, { $set: { assignedto : assignee, available : false }},{new : true},
+          function(err, result){
+            if (err) throw err;
+            if(result){
+              res.send('assigned');
+            }else{
+              res.send('no item or unavailable');
+            }
+            
+          });
+        }
+        
+    })
   };
   
   
