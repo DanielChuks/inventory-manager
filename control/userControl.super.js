@@ -37,6 +37,10 @@
     const serialcode = document.getElementById('newSerialCode').value;
     const purchaseDate = document.getElementById('newPurchaseDate').value;
     
+    if(!name || !description || !serialnumber || !serialcode || !purchaseDate){
+      alert()
+    }
+    
     const url = `${appUrl}/api/addasset?name=${name}&description=${description}&serialcode=${serialcode}
      &serialnumber=${serialnumber}&purchasedate=${purchaseDate}`;
     ajaxFunctions.ajaxRequest('POST', url, function(data){
