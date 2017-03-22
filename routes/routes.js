@@ -49,18 +49,18 @@ module.exports = function(app, passport){
     .get(assetHander.assignAsset)
     .post(assetHander.assignAsset);
     
-  /*app.route('/api/unassignasset')
-    .get()
-    .post();
+  app.route('/api/unassignasset')
+    .get(assetHander.unAsignAsset)
+    .post(assetHander.unAsignAsset);
   
   app.route('/api/addadmin')
-    .get()
-    .post();
+    .get(userHandler.addAdmin)
+    .post(userHandler.addAdmin);
     
-  app.route('/api/asset')
+  /*app.route('/api/asset')
     .get()
-    .post();
-    */
+    .post();*/
+    
     
     
 };

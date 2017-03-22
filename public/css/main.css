@@ -1,3 +1,7 @@
+body{
+    background: url("/img/Andela-logo-landscape-blue-400px.png.png")no-repeat 20% 67%;
+}
+
 .page-container{
     height: auto;
     margin: 0 auto;
@@ -47,7 +51,7 @@ li:not(last-child):hover{
 /********BACKGROUND IMAGE********/
 .back {
   position: relative;
-  background: url("../img/rough.jpg")no-repeat 20% 67%;
+  background: url("/img/Andela-logo-landscape-blue-400px.png.png")no-repeat 20% 67%;
 }
 .back.header {
     height: auto;

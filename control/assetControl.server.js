@@ -61,6 +61,19 @@ function AssetHandler() {
   };
   
   
+  this.unAsignAsset = function(req, res){
+    const serialcode = req.query.serialcode;
+    Asset.findOneAndUpdate({serialcode : serialcode}, {$set:{assignedto : '', available : true }}, {new : true},
+    function(err, data){
+      if(err) throw err;
+      if(data){
+        res.send("unassigned");
+      }else{
+        res.send("not item");
+      }
+    })
+  }
+  
 }
 
 
