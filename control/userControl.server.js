@@ -1,19 +1,22 @@
 'use strict';
 const path = process.cwd();
-const Users = require(path + '/model/users.js');
+const User = require(path + '/model/users.js');
 
 
 function UserHandler() {
   //log users in using the proper authentications
   this.login = function(req, res){
-    const query = req.query;
+    const query = req.body;
     const username = query.username;
     const password = query.password;
-    Users.findOne({username: username, password: password})
+    console.log(req.body);
+    console.log(password, username)
+    User.findOne({username: username})
       .exec(function(err, result){
         if(err){
           throw err;
         }else{
+          console.log(result)
           if(result.accounttype === 'superadmin'){
             console.log('Super');
             res.redirect('/:username/admin/super')
@@ -30,6 +33,18 @@ function UserHandler() {
           
         }
       });
+  };
+  
+  this.superAdmin = function(req, res){
+    res.sendFile(path + "/public/superadmin.html");
+  };
+  
+  this.admin = function(req, res){
+    res.sendFile(path + "/public/admin.html");
+  };
+  
+  this.user = function(req, res){
+    res.sendFile(path + "/public/user.html");
   };
 }
 

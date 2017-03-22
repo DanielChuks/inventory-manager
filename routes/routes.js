@@ -18,18 +18,16 @@ module.exports = function(app, passport){
     .post(passport.authenticate('local-signup', {
         successRedirect : '/',
         failureFlash : true
-    }), userHandler.signup);
+    }));
     
   app.route("/login")
     .get(function(req, res){
       res.sendFile(path + "/public/login.html");
     })
-    .post(passport.authenticate('local', 
+    .post(passport.authenticate('local-login', 
       { failureRedirect: '/login',
         failureFlash: true 
-      }), function(req, res){
-        res.redirect('/');
-      });
+      }), userHandler.login);
   
   app.route('/:username/admin/super')
     .get(userHandler.superAdmin);
