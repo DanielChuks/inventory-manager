@@ -44,7 +44,7 @@
                 <li>
                     <a href="#">Issues</a>
                 </li>
-                <li>
+                <li id="newAssetDisplayButton">
                     <a href="#">Add Asset</a>
                 </li>
                 <li>
@@ -64,9 +64,13 @@
                     <div class="col-lg-12">
                         <h1>Loading</h1>
                         <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
-                        <div class="add-admin" id="addAdminBox">
-                            <input type="text" name="admin" value="Admin Username" id='admin'/>
+                        <div class="display-box" id="addAdminBox">
+                            <input type="text" name="admin" placeholder="Admin Username" id='admin'/>
                             <input type='submit' value="Add" id='addAdminButton'>
+                            <input type='submit' value="Cancel" id='cancelAdminButton'>
+                        </div>
+                        <div class="display-box" id="addAssetBox">
+                            
                         </div>
                     </div>
                 </div>
