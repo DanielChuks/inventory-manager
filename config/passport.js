@@ -15,8 +15,9 @@ module.exports = function (passport) {
         done(err, user);
       });
     });
-    
-   passport.use('local', new LocalStrategy(
+
+   // set middleware
+   passport.use('local-login', new LocalStrategy(
      function(username, password, done) {
         User.findOne({ username: username }, function(err, user) {
           if (err) { return done(err); }
@@ -32,42 +33,52 @@ module.exports = function (passport) {
   ));
   
   passport.use('local-signup', new LocalStrategy({
-        // by default, local strategy uses username and password, we will override with email
         usernameField : 'username',
         passwordField : 'password',
-        passReqToCallback : true // allows us to pass back the entire request to the callback
+        passReqToCallback : true
     },
     function(req, username, password, done) {
+        const query = req.query;
+        const data = {
+          username : query.username,
+          password : query.password,
+          firstname : query.firstname,
+          lastname : query.lastname,
+          accounttype : query.accounttype,
+          department : query.department,
+          staffcode : query.staffcode
+        };
 
         // asynchronous
         // User.findOne wont fire unless data is sent back
         process.nextTick(function() {
 
-        // find a user whose email is the same as the forms email
-        // we are checking to see if the user trying to login already exists
-        User.findOne({ 'username' :  username }, function(err, user) {
+        //check if user already exist with this username or staffcode
+        //check if a super-admin already exists
+        User.findOne({$or: [{username: data.username},{staffcode: data.staffcode},
+          {$and: [{accounttype: "superadmin"}, {accounttype: data.accounttype}]}]},
+          function(err, user) {
             // if there are any errors, return the error
             if (err)
                 return done(err);
-
-            // check to see if theres already a user with that email
             if (user) {
-                return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
+                if(user.username === data.username){
+                    console.log('User already exists, can not re-add.')
+                    req.flash('User already exists, can not re-add.')
+                  }else if(user.accounttype === data.accounttype && data.accounttype === "superadmin"){
+                    console.log("A super-admin already exists!");
+                    req.flash('A super-admin already exists!');
+                  }
+                  else{
+                    console.log("Your Staff Code is already registered!");
+                    req.flash('Your Staff Code is already registered!')
+                  }
+                return done(null, false);
             } else {
 
-                // if there is no user with that email
+                // if requirements are met
                 // create the user
-                const query = req.query;
-                const newUser            = new User({
-                      username : query.username,
-                      password : query.password,
-                      firstname : query.firstname,
-                      lastname : query.lastname,
-                      accounttype : query.accounttype,
-                      department : query.department,
-                      staffcode : query.staffcode
-                    });
-
+                const newUser            = new User(data);
            
                 newUser.password = newUser.generateHash(password);
 

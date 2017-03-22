@@ -16,20 +16,20 @@ module.exports = function(app, passport){
       res.sendFile(path + "/public/signup.html");
     })
     .post(passport.authenticate('local-signup', {
-        successRedirect : '/', 
-        failureRedirect : '/signup', 
+        successRedirect : '/',
         failureFlash : true
-    }));
+    }), userHandler.signup);
     
   app.route("/login")
     .get(function(req, res){
       res.sendFile(path + "/public/login.html");
     })
     .post(passport.authenticate('local', 
-      { successRedirect: '/',
-        failureRedirect: '/login',
+      { failureRedirect: '/login',
         failureFlash: true 
-      }));
+      }), function(req, res){
+        res.redirect('/');
+      });
   
   app.route('/:username/admin/super')
     .get(userHandler.superAdmin);
