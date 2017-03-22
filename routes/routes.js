@@ -1,15 +1,9 @@
-//const path = process.cwd();
-const crypto = require('crypto');
-//const bodyParser = require('body-parser');
-const argon2i = require('argon2-ffi').argon2i;
 const path = process.cwd();
+const argon2i = require('argon2-ffi').argon2i;
 const UserHandler = require("../control/userControl.server.js");
 
 
-const MIN_PASSWORD_LENGTH = 8;
-const MAX_PASSWORD_LENGTH = 160;
-
-module.exports = function(app){
+module.exports = function(app, passport){
   const userHandler = new UserHandler();
   app.route("/")
     .get(function(req, res){
@@ -21,18 +15,22 @@ module.exports = function(app){
     .get(function(req, res){
       res.sendFile(path + "/public/signup.html");
     })
-    .post(userHandler.signup);
+    .post(passport.authenticate('local-signup', {
+        successRedirect : '/',
+        failureFlash : true
+    }), userHandler.signup);
     
   app.route("/login")
     .get(function(req, res){
       res.sendFile(path + "/public/login.html");
     })
-    .post(userHandler.login);
+    .post(passport.authenticate('local', 
+      { failureRedirect: '/login',
+        failureFlash: true 
+      }), function(req, res){
+        res.redirect('/');
+      });
   
   app.route('/:username/admin/super')
     .get(userHandler.superAdmin);
-    
-    
-  
-  
 };

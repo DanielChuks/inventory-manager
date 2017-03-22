@@ -16,11 +16,12 @@
      </header>
      <div class="auth-container">
         <div class="auth-content">
-           <form action="javascript:" onsubmit="login()">
+           <form action="/login" method="post">
               Username:
               <input id="username" type="text" name="username" value=""><br><br>
               Password:
               <input id="password" type="password" name="password" value=""><br><br>
+              {{{message}}}
               <input type="submit" class="submit-signup" value="Log In">
            </form>
         </div>
