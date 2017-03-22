@@ -11,6 +11,7 @@
   const assignAssetBox = document.getElementById("assignAssetBox");
   const assignAssetButton = document.getElementById("assignAssetButton");
   const cancelAssignButton = document.getElementById("cancelAssignButton");
+  const availableAssetBox = document.getElementById('availableAssetBox');
   
   //add admin
   adminDisplayButton.addEventListener('click', function(){adminBox.style.display = 'block'}, false);
@@ -111,7 +112,20 @@
   function createElement(data){
     if(data !== "No results"){
       const assets = JSON.parse(data);
-      console.log(assets)
+      let innerHtml = '';
+      
+      for (var i = 0; i<assets.length; i++){
+        innerHtml += `<div class='available'>
+          <p>Name: ${assets.name}</p><br>
+          <p>Description: ${assets.description}</p><br>
+          <p>Serial Number: ${assets.serialnumber}</p><br><br>
+          <p>Andela Serial Code: ${assets.serialcode}</p><br><br>
+          <p>Date of Purchase: ${assets.purchasedate}</p><br><br>
+        </div>`; 
+        
+      }
+      availableAssetBox.innerHTML = innerHtml;
+      
     }
     
   }
