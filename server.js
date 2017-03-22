@@ -18,6 +18,7 @@ require('./config/passport')(passport);
 
 mongoose.connect(MONGODB_URI);
 
+
 //middleware for static files
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/control', express.static(process.cwd() + '/control'));

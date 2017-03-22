@@ -1,5 +1,4 @@
 const path = process.cwd();
-const argon2i = require('argon2-ffi').argon2i;
 const UserHandler = require("../control/userControl.server.js");
 const AssetHandler = require("../control/assetControl.server.js");
 
@@ -9,12 +8,22 @@ module.exports = function(app, passport){
   const assetHander = new AssetHandler();
   app.route("/")
     .get(function(req, res){
-      console.log("Ok")
-      res.sendFile(path + "/public/index.html");
-    });
+      console.log(req.user);
+        if (req.isAuthenticated()){
+            var username = req.user.username;
+            console.log(username)
+            res.redirect("/" + username);
+        }
+        else{
+          
+            res.sendFile(path + "/public/index.html");
+        }
+      });
+      
+    ;
     
   app.route("/signup")
-    .get(function(req, res){
+    .get(notLoggedIn, function(req, res){
       res.sendFile(path + "/public/signup.html");
     })
     .post(passport.authenticate('local-signup', {
@@ -23,7 +32,7 @@ module.exports = function(app, passport){
     }));
     
   app.route("/login")
-    .get(function(req, res){
+    .get(notLoggedIn, function(req, res){
       res.sendFile(path + "/public/login.html");
     })
     .post(passport.authenticate('local-login', 
@@ -61,6 +70,24 @@ module.exports = function(app, passport){
     .get()
     .post();*/
     
+    
+  //check if user is authenticated
+    function isLoggedIn (req, res, next) {
+      if (req.isAuthenticated()) {
+          return next();
+      } else {
+          res.redirect('/login');
+      }
+    }
+  
+  //if not log in continue next action, else redirect to appropriate profile
+    function notLoggedIn(req, res, next){
+      if (!req.isAuthenticated()) {
+          return next();
+      } else {
+          return userHandler.login(req, res);
+      }
+    }
     
     
 };

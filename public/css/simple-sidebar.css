@@ -127,3 +127,14 @@
         margin-right: 0;
     }
 }
+
+/*****MODIFICATIONS*****/
+/****SUPERADMIN***/
+.add-admin{
+    display: none;
+    width: 400px;
+    position: absolute;
+    left : 300px;
+    background: black;
+    padding: 50px;
+}

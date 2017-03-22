@@ -6,11 +6,8 @@ const User = require(path + '/model/users.js');
 function UserHandler() {
   //log users in using the proper authentications
   this.login = function(req, res){
-    const query = req.body;
-    const username = query.username;
-    const password = query.password;
-    console.log(req.body);
-    console.log(password, username)
+    const username = !req.body.username ? req.user.username : req.body.username;
+    console.log(username);
     User.findOne({username: username})
       .exec(function(err, result){
         if(err){
