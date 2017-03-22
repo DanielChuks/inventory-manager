@@ -17,17 +17,17 @@ function AssetHandler() {
         assignedto: ''
       };
     
-    Asset.findOne({serialcode : asset.serialcode},
+    Asset.findOne({$or: [{serialcode : asset.serialcode}, {serialnumber: asset.serialnumber}]},
       function(err, result){
         if (err) throw err;
         if(result){
           console.log(result);
-          res.send('false');
+          res.send('The Serial Number or Serial Code you have provided has already been assigned to an item!');
         }else{
           const newAsset = new Asset(asset);
           newAsset.save(function(err){
             if (err) throw err;
-            res.send('true');
+            res.send('Asset has been added successfully!');
           });
         }
       });

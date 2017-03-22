@@ -37,15 +37,42 @@
     const serialcode = document.getElementById('newSerialCode').value;
     const purchaseDate = document.getElementById('newPurchaseDate').value;
     
+    const today = new Date();
+    const dd = (today.getDate());
+    const mm = today.getMonth()+1; //January is 0!
+    const yyyy = today.getFullYear();
+    
+    const formDD = Number(purchaseDate.substr(8, 2));
+    const formMM = Number(purchaseDate.substr(5, 2));
+    const formYYYY = Number(purchaseDate.substr(0, 4));
+    console.log(purchaseDate)
+    console.log(formDD, dd, formMM, mm, formYYYY, yyyy);
+    
     if(!name || !description || !serialnumber || !serialcode || !purchaseDate){
-      alert()
+      alert("Please provide a valid input for all field!");
+      return;
+    }
+    
+    if(serialnumber < 1){
+      alert("Serial Number should not be less than 1!");
+      return;
+    }
+    
+    if(formDD > dd || formMM > mm || formYYYY > yyyy){
+      alert("Purchase Date can not be greater than today!")
+      return;
     }
     
     const url = `${appUrl}/api/addasset?name=${name}&description=${description}&serialcode=${serialcode}
      &serialnumber=${serialnumber}&purchasedate=${purchaseDate}`;
     ajaxFunctions.ajaxRequest('POST', url, function(data){
-      alert(data);
-      addAssetBox.style.display = 'none';
+      if (data === 'Asset has been added successfully!'){
+        alert(data);
+        addAssetBox.style.display = 'none';
+      }else{
+        alert(data);
+      }
+      
     });
   }
     
