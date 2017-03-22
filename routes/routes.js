@@ -62,9 +62,8 @@ module.exports = function(app, passport){
   app.route('/api/addadmin')
     .post(userHandler.addAdmin);
     
-  /*app.route('/api/asset')
-    .get()
-    .post();*/
+  app.route('/api/assets')
+    .get(assetHander.getAssets);
     
     
   //check if user is authenticated

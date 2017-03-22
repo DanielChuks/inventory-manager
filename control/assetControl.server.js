@@ -72,7 +72,18 @@ function AssetHandler() {
         res.send("not item");
       }
     })
-  }
+  };
+  
+  this.getAssets = function(req, res){
+    Asset.find({})
+      .exec(function (err, result) {
+        if (err) { throw err}
+        if(!result){
+          res.send("No results");
+        }
+        res.json(result);
+      });
+  };
   
 }
 

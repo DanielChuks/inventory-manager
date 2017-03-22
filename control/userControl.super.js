@@ -8,6 +8,9 @@
   const addAssetBox = document.getElementById("addAssetBox");
   const addAssetButton = document.getElementById("addAssetButton");
   const cancelAssetButton = document.getElementById("cancelAssetButton");
+  const assignAssetBox = document.getElementById("assignAssetBox");
+  const assignAssetButton = document.getElementById("assignAssetButton");
+  const cancelAssignButton = document.getElementById("cancelAssignButton");
   
   //add admin
   adminDisplayButton.addEventListener('click', function(){adminBox.style.display = 'block'}, false);
@@ -75,6 +78,45 @@
       
     });
   }
+  
+  //assign asset
+ /* adminDisplayButton.addEventListener('click', function(){assignAssetBox.style.display = 'block'}, false);
+  assignAssetButton.addEventListener('click', assignAsset, false);
+  cancelAssignButton.addEventListener('click', function(){assignAssetBox.style.display = 'none'}, false);*/
+  
+  //Assign Asset
+  /*function assignAsset(){
+    const username = document.getElementById('admin').value;
+    const url = `${appUrl}/api/addadmin?username=${username}`;
+    ajaxFunctions.ajaxRequest('POST', url, function(data){
+      alert(data);
+      adminBox.style.display = 'none';
+    });
+  }*/
+  
+  function availableAsset(){
+    /*const path = window.location.pathname;
+    const pattern = /\w+/g;
+    const len = (path.match(pattern)||[]).length;
+    var accounttype = 'user';
+    if(len === 2){
+      accounttype = 'admin'
+    }
+    if(len === 3){
+      accounttype = 'superadmin'
+    }*/
+    ajaxFunctions.ajaxRequest('GET', `${appUrl}/api/assets`, createElement);
+  }
+  
+  function createElement(data){
+    if(data !== "No results"){
+      const assets = JSON.parse(data);
+      console.log(assets)
+    }
+    
+  }
+  
+  document.addEventListener('click', availableAsset, false)
     
 })()
 
