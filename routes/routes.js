@@ -33,4 +33,10 @@ module.exports = function(app, passport){
   
   app.route('/:username/admin/super')
     .get(userHandler.superAdmin);
+    
+  app.route('/:username/admin')
+    .get(userHandler.admin);
+    
+  app.route('/:username')
+    .get(userHandler.user);
 };
