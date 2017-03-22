@@ -49,15 +49,27 @@ function UserHandler() {
   };
   
   this.superAdmin = function(req, res){
-    res.sendFile(path + "/public/superadmin.html");
+    if(req.params.username === req.user.username){
+      res.sendFile(path + "/public/superadmin.html");
+    }else{
+      res.redirect(`/${req.user.username}/admin/super`);
+    }
   };
   
   this.admin = function(req, res){
-    res.sendFile(path + "/public/admin.html");
+    if(req.params.username === req.user.username){
+      res.sendFile(path + "/public/admin.html");
+    }else{
+      res.redirect(`/${req.user.username}/admin`);
+    }
   };
   
   this.user = function(req, res){
-    res.sendFile(path + "/public/user.html");
+    if(req.params.username === req.user.username){
+      res.sendFile(path + "/public/user.html");
+    }else{
+      res.redirect(`/${req.user.username}`);
+    }
   };
 }
 

@@ -51,24 +51,19 @@ module.exports = function(app, passport){
     
   /*********API********/
   app.route('/api/addasset')
-    .get(assetHander.addAsset)
     .post(assetHander.addAsset);
     
   app.route('/api/assignasset')
-    .get(assetHander.assignAsset)
     .post(assetHander.assignAsset);
     
   app.route('/api/unassignasset')
-    .get(assetHander.unAsignAsset)
     .post(assetHander.unAsignAsset);
   
   app.route('/api/addadmin')
-    .get(userHandler.addAdmin)
     .post(userHandler.addAdmin);
     
-  /*app.route('/api/asset')
-    .get()
-    .post();*/
+  app.route('/api/assets')
+    .get(assetHander.getAssets);
     
     
   //check if user is authenticated
