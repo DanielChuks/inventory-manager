@@ -37,4 +37,28 @@ module.exports = function(app, passport){
     
   app.route('/:username')
     .get(userHandler.user);
+    
+  /*********API********/
+  app.route('/api/addasset')
+    .get()
+    .post();
+    
+  app.route('/api/assignasset')
+    .get()
+    .post();
+    
+  app.route('/api/unassignasset')
+    .get()
+    .post();
+  
+  app.route('/api/addadmin')
+    .get()
+    .post();
+    
+  app.route('/api/asset')
+    .get()
+    .post();
+    
+    
+    
 };
