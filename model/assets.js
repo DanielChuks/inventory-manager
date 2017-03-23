@@ -10,7 +10,17 @@ const assetSchema = new AssetSchema({
   serialcode : String,
   purchasedate : String,
   available : Boolean,
-  assignedto: String
+  assignedto: String,
+  admin: String,
+  assignDate: Date,
+  issue : {
+    nature: String,
+    reporter: String,
+    date: Date,
+    reporterComment: String,
+    adminComment: String,
+    resolved: Boolean
+  }
 });
 
 // create the model for users and expose it to our app

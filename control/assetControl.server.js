@@ -14,7 +14,16 @@ function AssetHandler() {
         serialcode : query.serialcode,
         purchasedate : query.purchasedate,
         available : true,
-        assignedto: ''
+        assignedto: '',
+        admin: query.user.username,
+        issue: {
+          nature: '',
+          reporter: '',
+          date: new Date(),
+          reporterComment: '',
+          adminComment: '',
+          resolved: true
+        }
       };
     
     Asset.findOne({$or: [{serialcode : asset.serialcode}, {serialnumber: asset.serialnumber}]},
@@ -45,7 +54,12 @@ function AssetHandler() {
           res.send("no user");
         }
         else{
-          Asset.findOneAndUpdate({$and: [{serialnumber : serial}, {available : true}]}, { $set: { assignedto : assignee, available : false }},{new : true},
+          const updates = {
+            assignedto : assignee, 
+            available : false,
+            assignDate : new Date()
+          };
+          Asset.findOneAndUpdate({$and: [{serialnumber : serial}, {available : true}]}, { $set: updates},{new : true},
           function(err, result){
             if (err) throw err;
             if(result){
