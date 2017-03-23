@@ -15,11 +15,12 @@ function AssetHandler() {
         purchasedate : query.purchasedate,
         available : true,
         assignedto: '',
-        admin: query.user.username,
+        admin: req.user.username,
+        reclaimDate: '',
         issue: {
           nature: '',
           reporter: '',
-          date: new Date(),
+          date: '',
           reporterComment: '',
           adminComment: '',
           resolved: true
@@ -88,8 +89,20 @@ function AssetHandler() {
     })
   };
   
-  this.getAssets = function(req, res){
-    Asset.find({})
+  this.availableAssets = function(req, res){
+    console.log(req.user.username);
+    Asset.find({available: true, admin : req.user.username})
+      .exec(function (err, result) {
+        if (err) { throw err}
+        if(!result){
+          res.send("No results");
+        }
+        res.json(result);
+      });
+  };
+  
+  this.assignedAssets = function(req, res){
+    Asset.find({available: false})
       .exec(function (err, result) {
         if (err) { throw err}
         if(!result){

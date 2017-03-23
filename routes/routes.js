@@ -8,18 +8,8 @@ module.exports = function(app, passport){
   const assetHander = new AssetHandler();
   app.route("/")
     .get(function(req, res){
-      console.log(req.user);
-        if (req.isAuthenticated()){
-            var username = req.user.username;
-            console.log(username)
-            res.redirect("/" + username);
-        }
-        else{
-          
-            res.sendFile(path + "/public/index.html");
-        }
+        res.sendFile(path + "/public/index.html");
       });
-      
     ;
     
   app.route("/signup")
@@ -39,6 +29,13 @@ module.exports = function(app, passport){
       { failureRedirect: '/login',
         failureFlash: true 
       }), userHandler.login);
+      
+  app.route("/logout")
+    .get(function(req, res) {
+        req.logout();
+        res.redirect('/');;
+    })
+    
   
   app.route('/:username/admin/super')
     .get(userHandler.superAdmin);
@@ -62,8 +59,11 @@ module.exports = function(app, passport){
   app.route('/api/addadmin')
     .post(userHandler.addAdmin);
     
-  app.route('/api/assets')
-    .get(assetHander.getAssets);
+  app.route('/api/availableassets')
+    .get(assetHander.availableAssets);
+    
+  app.route('/api/assignedassets')
+    .get(assetHander.assignedAssets);
     
     
   //check if user is authenticated

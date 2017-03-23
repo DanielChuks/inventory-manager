@@ -142,7 +142,13 @@
 .asset{
     width: 100%
 }
-
-.available{
-    
+#availableAssetBox{
+    background: white;
+    color : blue;
 }
+.available{
+    border: 1px solid gray;
+    padding: 5px;
+    border-radius: 15px;
+}
+

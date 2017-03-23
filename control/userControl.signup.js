@@ -7,13 +7,21 @@
   
   //Sign Up, post form data to server
   function singUp(){
-    const username = document.getElementById('username').value;
+    const trailingSpace = /^\s+|\s+$/g;
+    const allSpace = /\s+/g;
+    const username = document.getElementById('username').value.replace(trailingSpace, '').toLowerCase();
     const password = document.getElementById('password').value;
-    const firstname = document.getElementById('firstname').value;
-    const lastname = document.getElementById('lastname').value;
+    const firstname = document.getElementById('firstname').value.replace(trailingSpace, '');
+    const lastname = document.getElementById('lastname').value.replace(trailingSpace, '');
     const accounttype = document.getElementById('accounttype').value;
     const department = document.getElementById('department').value;
     const staffcode = document.getElementById('staffcode').value;
+    
+    console.log(username);
+    if (staffcode.match(allSpace)){
+      alert('Staff Code can not contain spaces!');
+      return
+    }
     
     const url = appUrl + `/signup?username=${username}&password=${password}&firstname=${firstname}&lastname=${lastname}&accounttype=${accounttype}&department=${department}&staffcode=${staffcode}`;
       

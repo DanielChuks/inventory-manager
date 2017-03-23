@@ -12,11 +12,11 @@ const assetSchema = new AssetSchema({
   available : Boolean,
   assignedto: String,
   admin: String,
-  assignDate: Date,
+  reclaimDate: String,
   issue : {
     nature: String,
     reporter: String,
-    date: Date,
+    date: String,
     reporterComment: String,
     adminComment: String,
     resolved: Boolean
