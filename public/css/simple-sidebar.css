@@ -142,25 +142,26 @@
 .asset{
     width: 100%
 }
-#availableAssetBox{
-    background: white;
-    color : blue;
-    width: 100%;
+
+.asset-container{
+    color: white;
+    background: blue;
 }
 
 
 .available{
-    border: 1px solid gray;
+    border: 1px solid white;
     padding: 5px;
     border-radius: 15px;
 }
 
-.assign-submit{
-    background: yellow;
-}
 
 #assignAssetBox{
     z-index: 10000;
     background: blue;
     padding-left: 40px;
+}
+
+.assign-submit, .unassign-submit{
+    color: black;
 }

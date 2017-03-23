@@ -39,15 +39,18 @@
                     </a>
                 </li>
                 <li>
+                    <a href="/logout">Sign Out</a>
+                </li>
+                <li>
                     <a href="#">Issues</a>
                 </li>
-                <li>
+                <li id="newAssetDisplayButton">
                     <a href="#">Add Asset</a>
                 </li>
-                <li>
+                <li id='availableAssetButton'>
                     <a href="#">Avaible Assets</a>
                 </li>
-                <li>
+                <li id='assignedAssetButton'>
                     <a href="#">Assigned Assets</a>
                 </li>
             </ul>
@@ -59,17 +62,44 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1>Loading ...</h1>
-                        <p></p>
-                        <p><code></code>.</p>
+                        <h1 id='welcomeBox'>Loading...</h1>
                         <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
+                        <div class="display-box" id="addAdminBox">
+                            <input type="text" name="admin" placeholder="Admin Username" id='admin'>
+                            <input type='submit' value="Add" id='addAdminButton'>
+                            <input type='submit' value="Cancel" id='cancelAdminButton'>
+                        </div>
+                        <div class="display-box" id="addAssetBox">
+                            <input class="asset" type="text" name="admin" placeholder="Asset Name" id='newName'/><br><br>
+                            <input class="asset" type="text" name="admin" placeholder="Description" id='newDescription'/><br><br>
+                            <input class="asset" type="number" name="admin" placeholder="Serial Number" id='newSerialNumber'/><br><br>
+                            <input class="asset" type="text" name="admin" placeholder="Serial Code" id='newSerialCode'/><br><br>
+                            <input class="asset" type="date" name="admin" placeholder="Date Purchase dd/mm/yyyy" id='newPurchaseDate'/><br><br>
+                            <input type='submit' value="Add" id='addAssetButton'>
+                            <input type='submit' value="Cancel" id='cancelAssetButton'>
+                        </div>
+                        <div class="display-box" id='availableContainer'>
+                            <div id="availableAssetBox">
+                            </div>
+                            <input type='submit' value="Close" id='closeAvailable'>
+                        </div>
+                        <div class="display-box" id='assignedContainer'>
+                            <div id="assignedAssetBox">
+                            </div>
+                            <input type='submit' value="Close" id='closeAssigned'>
+                        </div>
+                        <div class="display-box" id='assignAssetBox'>
+                            <input type="text" name="user" placeholder="Staff Username to whom asset will be assigned" id='assignUser'>
+                            <input type="date" name="user" placeholder="Reclaim Date" id='assignReclaimDate'>
+                            <input type='submit' value="Assign" id='assignAsset'>
+                            <input type='submit' value="Cancel" id='assignCancel'>
+                        </div>
                     </div>
                 </div>
+                </<div>
             </div>
         </div>
         <!-- /#page-content-wrapper -->
-        
-        <!---->
 
     </div>
     <!-- /#wrapper -->
@@ -86,6 +116,18 @@
         e.preventDefault();
         $("#wrapper").toggleClass("toggled");
     });
+    </script>
+    <script type="text/javascript" src="/common/ajax-functions.js"></script>
+    <script type="text/javascript" src="/control/adminControl.client.js"></script>
+    <script>
+        ajaxFunctions.ready(function(){
+            const path = window.location.pathname;
+            const pattern = /\w+/;
+            const username = path.match(pattern)[0];
+            
+            const welcomeBox = document.getElementById('welcomeBox');
+            welcomeBox.innerHTML = `Welcome: ${username.toUpperCase()}`;
+        });
     </script>
 
 </body>

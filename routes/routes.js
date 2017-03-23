@@ -47,6 +47,9 @@ module.exports = function(app, passport){
   app.route('/api/addasset')
     .post(assetHander.addAsset);
     
+  app.route('/api/allassets')
+    .get(assetHander.allAssets);
+    
   app.route('/api/assignasset')
     .post(assetHander.assignAsset);
     
@@ -61,6 +64,17 @@ module.exports = function(app, passport){
     
   app.route('/api/assignedassets')
     .get(assetHander.assignedAssets);
+    
+  app.route('/api/reportissue')
+    .post(assetHander.reportIssue);
+  
+  app.route('/api/resolveissue')
+    .post(assetHander.resolveIssue);
+  
+  app.route('/api/issue')
+    .get(assetHander.getIssues);
+    
+  
     
     
   //check if user is authenticated

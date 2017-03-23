@@ -50,8 +50,11 @@
                 <li id="newAssetDisplayButton">
                     <a href="#">Add Asset</a>
                 </li>
+                <li id="allAssetsDisplayButton">
+                    <a href="#">All Assets</a>
+                </li>
                 <li id='availableAssetButton'>
-                    <a href="#">Avaible Assets</a>
+                    <a href="#">Available Assets</a>
                 </li>
                 <li id='assignedAssetButton'>
                     <a href="#">Assigned Assets</a>
@@ -81,15 +84,17 @@
                             <input type='submit' value="Add" id='addAssetButton'>
                             <input type='submit' value="Cancel" id='cancelAssetButton'>
                         </div>
-                        <div class="display-box" id='availableContainer'>
+                        <div class="display-box asset-container" id='allAssetsContainer'>
+                            <div id="allAssetsBox">
+                            </div>
+                        </div>
+                        <div class="display-box asset-container" id='availableContainer'>
                             <div id="availableAssetBox">
                             </div>
-                            <input type='submit' value="Close" id='closeAvailable'>
                         </div>
-                        <div class="display-box" id='assignedContainer'>
+                        <div class="display-box asset-container" id='assignedContainer'>
                             <div id="assignedAssetBox">
                             </div>
-                            <input type='submit' value="Close" id='closeAssigned'>
                         </div>
                         <div class="display-box" id='assignAssetBox'>
                             <input type="text" name="user" placeholder="Staff Username to whom asset will be assigned" id='assignUser'>
@@ -121,7 +126,7 @@
     });
     </script>
     <script type="text/javascript" src="/common/ajax-functions.js"></script>
-    <script type="text/javascript" src="/control/userControl.super.js"></script>
+    <script type="text/javascript" src="/control/superadminControl.client.js"></script>
     <script>
         ajaxFunctions.ready(function(){
             const path = window.location.pathname;

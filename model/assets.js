@@ -12,15 +12,7 @@ const assetSchema = new AssetSchema({
   available : Boolean,
   assignedto: String,
   admin: String,
-  reclaimDate: String,
-  issue : {
-    nature: String,
-    reporter: String,
-    date: String,
-    reporterComment: String,
-    adminComment: String,
-    resolved: Boolean
-  }
+  reclaimDate: String
 });
 
 // create the model for users and expose it to our app
