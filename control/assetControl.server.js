@@ -47,26 +47,27 @@ function AssetHandler() {
     const query = req.query;
     const serial = query.serial;
     const assignee = query.assignee;
+    const date = query.date;
     
     User.findOne({username:assignee})
       .exec(function(err, data){
         if (err) throw err
         if(!data){
-          res.send("no user");
+          res.send(`No user: ${assignee}`);
         }
         else{
           const updates = {
             assignedto : assignee, 
             available : false,
-            assignDate : new Date()
+            reclaimDate : date
           };
-          Asset.findOneAndUpdate({$and: [{serialnumber : serial}, {available : true}]}, { $set: updates},{new : true},
+          Asset.findOneAndUpdate({$and: [{serialcode : serial}, {available : true}]}, { $set: updates},{new : true},
           function(err, result){
             if (err) throw err;
             if(result){
-              res.send('assigned');
+              res.send(`Assigned to ${assignee} successfully`);
             }else{
-              res.send('no item or unavailable');
+              res.send('No such item or it is unavailable at the moment!');
             }
             
           });
@@ -78,11 +79,11 @@ function AssetHandler() {
   
   this.unAsignAsset = function(req, res){
     const serialcode = req.query.serialcode;
-    Asset.findOneAndUpdate({serialcode : serialcode}, {$set:{assignedto : '', available : true }}, {new : true},
+    Asset.findOneAndUpdate({serialcode : serialcode}, {$set:{assignedto : '', available : true, reclaimDate:'' }}, {new : true},
     function(err, data){
       if(err) throw err;
       if(data){
-        res.send("unassigned");
+        res.send("Unassigned successfully!");
       }else{
         res.send("not item");
       }

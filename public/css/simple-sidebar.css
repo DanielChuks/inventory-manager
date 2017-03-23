@@ -145,10 +145,22 @@
 #availableAssetBox{
     background: white;
     color : blue;
+    width: 100%;
 }
+
+
 .available{
     border: 1px solid gray;
     padding: 5px;
     border-radius: 15px;
 }
 
+.assign-submit{
+    background: yellow;
+}
+
+#assignAssetBox{
+    z-index: 10000;
+    background: blue;
+    padding-left: 40px;
+}

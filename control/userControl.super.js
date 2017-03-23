@@ -1,5 +1,6 @@
 (function(){
   //DOM objects
+  let globalCode = '';
   const addAdminBox = document.getElementById('addAdminBox');
   const adminDisplayButton = document.getElementById('adminDisplayButton');
   const addAdminButton = document.getElementById('addAdminButton');
@@ -20,9 +21,7 @@
   
   //display available asset box
   availableAssetButton.addEventListener('click', function() {
-    if(availableAssetBox.innerHTML){
-      availableContainer.style.display = 'block';
-    }
+    closeWindows('availableContainer');
   })
   
   //display unavailable asset box
@@ -108,22 +107,124 @@
   }
   
   //assign asset
- /* adminDisplayButton.addEventListener('click', function(){assignAssetBox.style.display = 'block'}, false);
-  assignAssetButton.addEventListener('click', assignAsset, false);
-  cancelAssignButton.addEventListener('click', function(){assignAssetBox.style.display = 'none'}, false);*/
+  $('#assignAsset').click(assignAsset)
+  $('#assignCancel').click( function(){assignAssetBox.style.display = 'none'});
+  
+  
   
   //Assign Asset
-  /*function assignAsset(){
-    const username = document.getElementById('admin').value;
-    const url = `${appUrl}/api/addadmin?username=${username}`;
+  function assignAsset(){
+    const username = $('#assignUser').val();
+    const date = $('#assignReclaimDate').val();
+    const url = `${appUrl}/api/assignasset?assignee=${username}&serial=${globalCode}&date=${date}`;
     ajaxFunctions.ajaxRequest('POST', url, function(data){
       alert(data);
-      adminBox.style.display = 'none';
+      assignAssetBox.style.display = 'none';
     });
-  }*/
+  }
+  
   
   function availableAsset(){
-    /*const path = window.location.pathname;
+    ajaxFunctions.ajaxRequest('GET', `${appUrl}/api/availableassets`, createAvailabe);
+  }
+  
+  
+  function createAvailabe(data){
+    console.log(data);
+    if(data !== "No results"){
+      const assets = JSON.parse(data);
+      
+      
+      for (var i = 0; i<assets.length; i++){
+        const asset = assets[i];
+        let innerHtml = `<div class='available'>
+          <p>Name: ${asset.name}</p>
+          <p>Description: ${asset.description}</p>
+          <p>Serial Number: ${asset.serialnumber}</p>
+          <p>Andela Serial Code: ${asset.serialcode}of</p>
+          <p>Date of Purchase: ${asset.purchasedate}</p>
+          <input type='submit' value='Assign' serial = '${asset.serialcode}' class='assign-submit'>
+          <input type='submit' value='Cancel'  class='cancel-assign'>
+        </div>`; 
+        $('#availableAssetBox').append(innerHtml);
+      }
+      
+      $('.assign-submit').click(assignDisplay);
+      $('.cancel-assign').click(function() {
+          assignAssetBox.style.display = 'none';
+      })
+    }
+  }
+  
+  function assignedAsset(){
+    ajaxFunctions.ajaxRequest('GET', `${appUrl}/api/assignedassets`, createAssigned);
+  }
+  
+  
+  function createAssigned(data){
+    console.log(data);
+    if(data !== "No results"){
+      const assets = JSON.parse(data);
+      console.log(assets)
+      
+      for (var i = 0; i<assets.length; i++){
+        const asset = assets[i];
+        let innerHtml = `<div class='available'>
+          <p>Name: ${asset.name}</p>
+          <p>Description: ${asset.description}</p>
+          <p>Serial Number: ${asset.serialnumber}</p>
+          <p>Andela Serial Code: ${asset.serialcode}</p>
+          <p>Date of Purchase: ${asset.purchasedate}</p>
+          <p>Assinged to: ${asset.assignedto}</p>
+          <p>Reclaim Date: ${asset.reclaimDate}</p>
+          <input type='submit' value='Unassign' serial = '${asset.serialcode}' class='unassign-submit'>
+        </div>`;
+        $('#assignedAssetBox').append(innerHtml);
+      }
+     
+      $('.unassign-submit').click(unassignAsset);
+    }
+  }
+  
+  //unassign asset
+  function unassignAsset(){
+    const serial = this.getAttribute('serial');
+    const url = `${appUrl}/api/unassignasset?serialcode=${serial}&test=test`;
+    ajaxFunctions.ajaxRequest('POST', url, function(data){
+      console.log(data)
+    })
+  }
+  
+  ajaxFunctions.ready(function(){
+    availableAsset();
+    assignedAsset();
+  });
+  
+
+  function assignDisplay(){
+    const serial = this.getAttribute('serial');
+    globalCode = serial;
+    console.log(globalCode);
+    document.getElementById('assignAssetBox').style.display = 'block';
+  }
+  
+  
+  function closeWindows(open){
+    document.getElementById('assignAssetBox').style.display = 'none';
+    document.getElementById('availableContainer').style.display = 'none';
+    document.getElementById('assignedContainer').style.display = 'none';
+    document.getElementById('addAdminBox').style.display = 'none';
+    document.getElementById('addAssetBox').style.display = 'none';
+    document.getElementById('assignAssetBox').style.display = 'none';
+    document.getElementById(open).style.display = 'block';
+  }
+  
+  
+  
+    
+})()
+
+/*const path = window.location.pathname;
     const pattern = /\w+/g;
     const len = (path.match(pattern)||[]).length;
     var accounttype = 'user';
@@ -133,68 +234,4 @@
     if(len === 3){
       accounttype = 'superadmin'
     }*/
-    ajaxFunctions.ajaxRequest('GET', `${appUrl}/api/availableassets`, createAvailabe);
-  }
-  
-  
-  function createAvailabe(data){
-    console.log(data);
-    if(data !== "No results"){
-      const assets = JSON.parse(data);
-      let innerHtml = '';
-      console.log(assets)
-      
-      for (var i = 0; i<assets.length; i++){
-        const asset = assets[i];
-        innerHtml += `<div class='available'>
-          <p>Name: ${asset.name}</p>
-          <p>Description: ${asset.description}</p>
-          <p>Serial Number: ${asset.serialnumber}</p>
-          <p>Andela Serial Code: ${asset.serialcode}</p>
-          <p>Date of Purchase: ${asset.purchasedate}</p>
-          <input type='submit' value='Asssgn' id='cancelAssetButton>'
-        </div>`; 
-        
-      }
-      availableAssetBox.innerHTML = innerHtml;
-      
-    }
-  }
-  
-  function assignedAsset(){
-    ajaxFunctions.ajaxRequest('GET', `${appUrl}/api/assignedassets`, createAssigned);
-  }
-  
-  function createAssigned(data){
-    console.log(data);
-    if(data !== "No results"){
-      const assets = JSON.parse(data);
-      let innerHtml = '';
-      console.log(assets)
-      
-      for (var i = 0; i<assets.length; i++){
-        const asset = assets[i];
-        innerHtml += `<div class='available'>
-          <p>Name: ${asset.name}</p>
-          <p>Description: ${asset.description}</p>
-          <p>Serial Number: ${asset.serialnumber}</p>
-          <p>Andela Serial Code: ${asset.serialcode}</p>
-          <p>Date of Purchase: ${asset.purchasedate}</p>
-          <p>Assinged to: ${asset.assignedto}</p>
-          <p>Rclaim Date: ${asset.purchasedate}</p>
-          <input type='submit' value='Unassign' id='cancelAssetButton>'
-        </div>`;
-      }
-      assignedAssetBox.innerHTML = innerHtml;
-      
-    }
-  }
-  
-  ajaxFunctions.ready(function(){
-    availableAsset();
-    assignedAsset();
-  });
-  
-    
-})()
 
