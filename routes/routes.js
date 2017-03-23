@@ -16,10 +16,7 @@ module.exports = function(app, passport){
     .get(notLoggedIn, function(req, res){
       res.sendFile(path + "/public/signup.html");
     })
-    .post(passport.authenticate('local-signup', {
-        successRedirect : '/',
-        failureFlash : true
-    }));
+    .post(userHandler.signup);
     
   app.route("/login")
     .get(notLoggedIn, function(req, res){

@@ -32,6 +32,59 @@ function UserHandler() {
       });
   };
   
+  this.signup = function(req, res){
+    const query = req.query;
+    const data = {
+      username : query.username,
+      password : query.password,
+      firstname : query.firstname,
+      lastname : query.lastname,
+      accounttype : query.accounttype,
+      department : query.department,
+      staffcode : query.staffcode
+    };
+    const password = data.password;
+    
+    //check if user already exist with this username or staffcode
+        //check if a super-admin already exists
+        User.findOne({$or: [{username: data.username},{staffcode: data.staffcode},
+          {$and: [{accounttype: "superadmin"}, {accounttype: data.accounttype}]}]},
+          function(err, user) {
+            // if there are any errors, return the error
+            if (err)throw err;
+                
+            if (user) {
+                if(user.username === data.username){
+                    console.log('User already exists, can not re-add.')
+                    res.send('username')
+                  }else if(user.accounttype === data.accounttype && data.accounttype === "superadmin"){
+                    console.log("A super-admin already exists!");
+                    res.send('accounttype');
+                  }
+                  else{
+                    console.log("Your Staff Code is already registered!");
+                    res.send('staffcode')
+                  }
+            } else {
+
+                // if requirements are met
+                // create the user
+                const newUser            = new User(data);
+           
+                newUser.password = newUser.generateHash(password);
+
+                // save the user
+                newUser.save(function(err) {
+                    if (err)
+                        throw err;
+                    console.log("User registerd successfully!");
+                    res.send("success");
+                });
+            }
+
+        });  
+  };
+  
   
   this.addAdmin = function(req, res){
     const username = req.query.username;
