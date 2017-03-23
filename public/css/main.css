@@ -1,6 +1,3 @@
-body{
-    background: url("/img/Andela-logo-landscape-blue-400px.png.png")no-repeat 20% 67%;
-}
 
 .page-container{
     height: auto;
@@ -51,7 +48,7 @@ li:not(last-child):hover{
 /********BACKGROUND IMAGE********/
 .back {
   position: relative;
-  background: url("/img/Andela-logo-landscape-blue-400px.png.png")no-repeat 20% 67%;
+  background: blue;
 }
 .back.header {
     height: auto;
@@ -64,15 +61,31 @@ li:not(last-child):hover{
 
 /*********AUTH**********/
 .auth-container{
+  position: absolute;
   width: 600px;
   height: auto;
-  background: #F5CBA7;
+  background: blue;
   margin: 40px auto;
+  left: 350px;
   text-align: center;
   padding: 50px;
   border-radius: 50px;
+  color: white
 }
 .auth-content{
   margin: 0 auto;
   width: 400px;
+}
+
+.backImage {
+    zoom: 2; 
+
+    display: block;
+    margin: auto;
+
+    height: auto;
+    max-height: 100%;
+
+    width: auto;
+    max-width: 100%;
 }
