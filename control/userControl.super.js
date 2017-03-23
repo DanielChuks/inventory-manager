@@ -15,18 +15,20 @@
   const availableAssetButton = document.getElementById('availableAssetButton');
   const assignedAssetButton = document.getElementById('assignedAssetButton');
   const assignedAssetBox = document.getElementById('assignedAssetBox');
+  const availableContainer = document.getElementById('availableContainer');
+  const assignedContainer = document.getElementById('assignedContainer');
   
   //display available asset box
   availableAssetButton.addEventListener('click', function() {
-    if(this.innerHTML){
-      availableAssetBox.style.display = 'block';
+    if(availableAssetBox.innerHTML){
+      availableContainer.style.display = 'block';
     }
   })
   
   //display unavailable asset box
   assignedAssetButton.addEventListener('click', function() {
-    if(this.innerHTML){
-      assignedAssetBox.style.display = 'block';
+    if(assignedAssetBox.innerHTML){
+      assignedContainer.style.display = 'block';
     }
   })
   
@@ -46,7 +48,7 @@
     const url = `${appUrl}/api/addadmin?username=${username}`;
     ajaxFunctions.ajaxRequest('POST', url, function(data){
       alert(data);
-      adminBox.style.display = 'none';
+      addAdminBox.style.display = 'none';
     });
   }
   
@@ -134,6 +136,7 @@
     ajaxFunctions.ajaxRequest('GET', `${appUrl}/api/availableassets`, createAvailabe);
   }
   
+  
   function createAvailabe(data){
     console.log(data);
     if(data !== "No results"){
@@ -156,6 +159,10 @@
       availableAssetBox.innerHTML = innerHtml;
       
     }
+  }
+  
+  function assignedAsset(){
+    ajaxFunctions.ajaxRequest('GET', `${appUrl}/api/assignedassets`, createAssigned);
   }
   
   function createAssigned(data){
@@ -185,7 +192,7 @@
   
   ajaxFunctions.ready(function(){
     availableAsset();
-    availableAsset();
+    assignedAsset();
   });
   
     
