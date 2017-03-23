@@ -62,7 +62,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1>Loading</h1>
+                        <h1 id='welcomeBox'>Loading...</h1>
                         <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
                         <div class="display-box" id="addAdminBox">
                             <input type="text" name="admin" placeholder="Admin Username" id='admin'/>
@@ -106,6 +106,16 @@
     </script>
     <script type="text/javascript" src="/common/ajax-functions.js"></script>
     <script type="text/javascript" src="/control/userControl.super.js"></script>
+    <script>
+        ajaxFunctions.ready(function(){
+            const path = window.location.pathname;
+            const pattern = /\w+/;
+            const username = path.match(pattern)[0];
+            
+            const welcomeBox = document.getElementById('welcomeBox');
+            welcomeBox.innerHTML = `Welcome: ${username.toUpperCase()}`
+        })
+    </script>
 
 </body>
 

@@ -121,6 +121,7 @@
           <p>Serial Number: ${assets.serialnumber}</p><br><br>
           <p>Andela Serial Code: ${assets.serialcode}</p><br><br>
           <p>Date of Purchase: ${assets.purchasedate}</p><br><br>
+          <input type='submit' value='Asssgn' id='cancelAssetButton'>
         </div>`; 
         
       }
