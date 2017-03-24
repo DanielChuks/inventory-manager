@@ -163,6 +163,6 @@
     padding-left: 40px;
 }
 
-.assign-submit, .unassign-submit, .submit{
+.assign-submit, .unassign-submit, .submit, .resolve{
     color: black;
 }

@@ -1,6 +1,7 @@
 (function(){
   //DOM objects
   let globalCode = '';
+  let globalResolveCode = '';
   const addAdminBox = document.getElementById('addAdminBox');
   const adminDisplayButton = document.getElementById('adminDisplayButton');
   const addAdminButton = document.getElementById('addAdminButton');
@@ -212,6 +213,7 @@
     ajaxFunctions.ajaxRequest('GET', `${appUrl}/api/allassets`, createAssets);
   }
   
+  //format asset for view
   function createAssets(data){
     if(data !== "No results"){
       const assets = JSON.parse(data);
@@ -250,6 +252,7 @@
     document.getElementById('assignAssetBox').style.display = 'none';
     document.getElementById('allAssetsContainer').style.display = 'none';
     document.getElementById('issueContainer').style.display = 'none';
+    document.getElementById('resolveContainer').style.display = 'none';
     document.getElementById(open).style.display = 'block';
   }
   
@@ -272,15 +275,31 @@
           <p>Date of report: ${issue.date}</p>
           <p>Resolved: ${issue.resolved?'Yes': 'No'}</p>
           <p>Reporters Comment: ${issue.reporterComment}</p>
-          <input type='submit' value='Resolve' serial = '${issue.serial}' class='assign-submit'>
+          <input type='submit' value='Resolve' serial = '${issue.serial}' class='resolve'>
         </div>`; 
       }
       $('#issueBox').html(innerHtml);
-      $('.assign-submit').click(function() {
-          console.log('Clicked resolve issue')
+      $('.resolve').click(function() {
+        globalResolveCode = this.getAttribute('serial');
+        console.log(globalResolveCode);
+          document.getElementById('resolveContainer').style.display = 'block';
       });
     }
   }
+  
+  function resolveIssue(){
+    const comment = $('#resolveComment').val();
+    ajaxFunctions.ajaxRequest('POST', `${appUrl}/api/resolveissue?serial=${globalResolveCode}&comment=${comment}`, function(response){
+      alert(response);
+      document.getElementById('resolveContainer').style.display = 'none';
+      $('#issueDisplayButton').click();
+    });
+  }
+  
+  $('#resolveSubmit').click(function(){resolveIssue()});
+  $('#resolveCancel').click(function() {
+    document.getElementById('resolveContainer').style.display = 'none';
+  })
   
   
   

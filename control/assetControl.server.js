@@ -174,8 +174,21 @@ function AssetHandler() {
       });
   };
   
-  this.resolveIssue = function(){
-    console.log('resolveIssue');
+  this.resolveIssue = function(req, res){
+    const query = req.query;
+    const adminComment = query.comment;
+    const serial = query.serial;
+    Issue.findOneAndUpdate({serial: serial},{$set: {adminComment: adminComment, resolved: true}})
+      .exec(function(err, data){
+        console.log(data);
+      if (err) throw err;
+      if(data){
+        res.json("Issue has been resolved!");
+      }else{
+        res.send("Error")
+      }
+    })
+    console.log('resolve') 
   };
 }
 
