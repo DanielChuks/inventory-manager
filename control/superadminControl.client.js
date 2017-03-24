@@ -249,6 +249,7 @@
     document.getElementById('addAssetBox').style.display = 'none';
     document.getElementById('assignAssetBox').style.display = 'none';
     document.getElementById('allAssetsContainer').style.display = 'none';
+    document.getElementById('issueContainer').style.display = 'none';
     document.getElementById(open).style.display = 'block';
   }
   
