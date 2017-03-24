@@ -269,8 +269,8 @@
           <p>Nature of Issue: ${issue.nature}</p>
           <p>Report: ${issue.reporter}</p>
           <p>Date of report: ${issue.date}</p>
-          <p>Resolved: ${issue.resolved}of</p>
-          <p>Reporters Comment: ${issue.resolved?'Yes': 'No'}</p>
+          <p>Resolved: ${issue.resolved?'Yes': 'No'}</p>
+          <p>Reporters Comment: ${issue.reporterComment}</p>
           <input type='submit' value='Resolve' serial = '${issue.serial}' class='assign-submit'>
         </div>`; 
       }
