@@ -23,6 +23,11 @@
       return
     }
     
+    if(accounttype === 'superadmin' && department !== 'Operations and Facilities'){
+      alert('You have to be in Operations and Facilities to be a "SuperAdmin"!');
+      return;
+    }
+    
     const url = appUrl + `/signup?username=${username}&password=${password}&firstname=${firstname}&lastname=${lastname}&accounttype=${accounttype}&department=${department}&staffcode=${staffcode}`;
       
       ajaxFunctions.ajaxRequest("POST", url, function(data){
