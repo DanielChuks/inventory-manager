@@ -35,6 +35,13 @@
     closeWindows('assignedContainer');
   })
   
+   //display issues
+  $('#issueDisplayButton').click(function() {
+    getIssues();
+    closeWindows('issueContainer');
+  });
+  
+  
   
   //add admin
   adminDisplayButton.addEventListener('click', function(){closeWindows('addAdminBox')}, false);
@@ -70,17 +77,8 @@
     const serialnumber = document.getElementById('newSerialNumber').value;
     const serialcode = document.getElementById('newSerialCode').value.replace(allSpace, '');
     const purchaseDate = document.getElementById('newPurchaseDate').value;
-    
+    const purchaseDate2 = new Date(purchaseDate);
     const today = new Date();
-    const dd = (today.getDate());
-    const mm = today.getMonth()+1; //January is 0!
-    const yyyy = today.getFullYear();
-    
-    const formDD = Number(purchaseDate.substr(8, 2));
-    const formMM = Number(purchaseDate.substr(5, 2));
-    const formYYYY = Number(purchaseDate.substr(0, 4));
-    console.log(purchaseDate)
-    console.log(formDD, dd, formMM, mm, formYYYY, yyyy);
     
     if(!name || !description || !serialnumber || !serialcode || !purchaseDate){
       alert("Please provide a valid input for all field!");
@@ -92,7 +90,7 @@
       return;
     }
     
-    if(formDD > dd || formMM > mm || formYYYY > yyyy){
+    if(Date.parse(today > Date.parse(purchaseDate2))){
       alert("Purchase Date can not be greater than today!")
       return;
     }
@@ -120,6 +118,19 @@
   function assignAsset(){
     const username = $('#assignUser').val();
     const date = $('#assignReclaimDate').val();
+    const reclaimdate= new Date(date);
+    const today = new Date();
+    
+    if(Date.parse(reclaimdate) < Date.parse(today)){
+      alert('Reclaim date can not be less than today!');
+      return;
+    }
+    
+    if(!username){
+      alert('Please provide username!');
+      return;
+    }
+    
     const url = `${appUrl}/api/assignasset?assignee=${username}&serial=${globalCode}&date=${date}`;
     ajaxFunctions.ajaxRequest('POST', url, function(data){
       alert(data);
@@ -239,6 +250,35 @@
     document.getElementById('assignAssetBox').style.display = 'none';
     document.getElementById('allAssetsContainer').style.display = 'none';
     document.getElementById(open).style.display = 'block';
+  }
+  
+  
+  //get issues
+  function getIssues(){
+    ajaxFunctions.ajaxRequest('GET', `${appUrl}/api/issue`, issueList);
+  }
+  //create the box for available assets
+  function issueList(data){
+    if(data !== "No issues"){
+      const issues = JSON.parse(data);
+      
+      let innerHtml ='';
+      for (var i = 0; i<issues.length; i++){
+        const issue = issues[i];
+          innerHtml += `<div class='available'>
+          <p>Nature of Issue: ${issue.nature}</p>
+          <p>Report: ${issue.reporter}</p>
+          <p>Date of report: ${issue.date}</p>
+          <p>Resolved: ${issue.resolved}of</p>
+          <p>Reporters Comment: ${issue.resolved?'Yes': 'No'}</p>
+          <input type='submit' value='Resolve' serial = '${issue.serial}' class='assign-submit'>
+        </div>`; 
+      }
+      $('#issueBox').html(innerHtml);
+      $('.assign-submit').click(function() {
+          console.log('Clicked resolve issue')
+      });
+    }
   }
   
   

@@ -137,6 +137,7 @@
     left : 300px;
     background: black;
     padding: 50px;
+    color: white;
 }
 
 .asset{
@@ -162,6 +163,6 @@
     padding-left: 40px;
 }
 
-.assign-submit, .unassign-submit{
+.assign-submit, .unassign-submit, .submit{
     color: black;
 }

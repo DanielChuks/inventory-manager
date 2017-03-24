@@ -91,7 +91,7 @@ function AssetHandler() {
   };
   
   this.availableAssets = function(req, res){
-    Asset.find({available: true, admin : req.user.username})
+    Asset.find({available: true})
       .exec(function (err, result) {
         if (err) { throw err}
         if(!result){
@@ -126,7 +126,7 @@ function AssetHandler() {
   this.getIssues = function(req, res){
     Issue.find({}, function(err, data) {
         if(err) throw err;
-        if(data){res.json[data]}
+        if(data){res.json(data)}
         else{res.send("No issues")}
     });
   };
