@@ -248,7 +248,8 @@
           <p>Report: ${issue.reporter}</p>
           <p>Date of report: ${issue.date}</p>
           <p>Resolved: ${issue.resolved?'Yes': 'No'}</p>
-          <p>Reporters Comment: ${issue.reporterComment}</p>
+          <p>Reporter's Comment: ${issue.reporterComment}</p>
+          <p>Admin's Comment: ${issue.adminComment}</p>
           <input type='submit' value='Resolve' serial = '${issue.serial}' class='assign-submit'>
         </div>`; 
       }
