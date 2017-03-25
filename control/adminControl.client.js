@@ -56,7 +56,7 @@
     const purchaseDate = document.getElementById('newPurchaseDate').value;
     const purchaseDate2 = new Date(purchaseDate);
     const today = new Date();
-    if(Date.parse(today > Date.parse(purchaseDate2))){
+    if(Date.parse(today < Date.parse(purchaseDate2))){
       alert("Purchase Date can not be greater than today!")
       return;
     }
@@ -68,11 +68,6 @@
     
     if(serialnumber < 1){
       alert("Serial Number should not be less than 1!");
-      return;
-    }
-    
-    if(formDD > dd || formMM > mm || formYYYY > yyyy){
-      alert("Purchase Date can not be greater than today!")
       return;
     }
     
@@ -263,9 +258,6 @@
       });
     }
   }
-  
-  
-  
     
 })()
 
