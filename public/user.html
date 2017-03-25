@@ -59,15 +59,17 @@
                         <h1 id='welcomeBox'>Loading</h1>
                         <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Inventory Actions</a>
                         <div class="display-box" id="reportIssueBox">
-                            <select name="issue" required  id = "issueType">
-                              <option value="" disabled selected hidden>Select Issue Type</option>
-                              <option value="lost">Lost Item</option>
-                              <option value="found">Found Item</option>
-                            </select><br><br>
-                            <input class='asset submit' type="text" name="issue" placeholder="Provide Your Admin Username" id='adminUsername'><br><br>
-                            <input class='asset submit' type="textarea" name="issue" placeholder="Add comments" id='comment'><br><br>
-                            <input class='submit' type='submit' value="Report" id='reportButton'>
-                            <input class='submit' type='submit' value="Cancel" id='reportCancel'>
+                            <form action="javascript:" onsubmit="reportIssue()">
+                                <select name="issue" class='asset submit' required  id = "issueType">
+                                  <option value="" disabled selected hidden>Select Issue Type</option>
+                                  <option value="lost">Lost Item</option>
+                                  <option value="found">Found Item</option>
+                                </select><br><br>
+                                <input required class='asset submit' type="text" name="issue" placeholder="Provide Your Admin Username" id='adminUsername'><br><br>
+                                <input required class='asset submit' type="textarea" name="issue" placeholder="Add comments" id='comment'><br><br>
+                                <input class='submit' type='submit' value="Report" id='reportButton'>
+                                <input class='submit' type='button' value="Cancel" id='reportCancel'>
+                            </form>
                         </div>
                         <div class="display-box asset-container" id='assetContainer'>
                             <div id="assetBox">
