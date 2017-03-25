@@ -176,7 +176,7 @@ function AssetHandler() {
   
   this.resolveIssue = function(req, res){
     const query = req.query;
-    const adminComment = query.comment;
+    const adminComment = query.comment ;
     const serial = query.serial;
     Issue.findOneAndUpdate({serial: serial},{$set: {adminComment: adminComment, resolved: true}})
       .exec(function(err, data){
