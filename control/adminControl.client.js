@@ -250,11 +250,11 @@
           <p>Resolved: ${issue.resolved?'Yes': 'No'}</p>
           <p>Reporter's Comment: ${issue.reporterComment}</p>
           <p>Admin's Comment: ${issue.adminComment}</p>
-          <input type='submit' value='Resolve' serial = '${issue.serial}' class='assign-submit'>
+          <input type='submit' value='Resolve' serial = '${issue.serial}' class='resolve-submit submit'>
         </div>`; 
       }
       $('#issueBox').html(innerHtml);
-      $('.assign-submit').click(function() {
+      $('.resolve-submit').click(function() {
           console.log('Clicked resolve issue')
       });
     }
