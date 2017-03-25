@@ -86,14 +86,17 @@
                         </div>
                         <div class="display-box asset-container" id='allAssetsContainer'>
                             <div id="allAssetsBox">
+                                Loading Assets...
                             </div>
                         </div>
                         <div class="display-box asset-container" id='availableContainer'>
                             <div id="availableAssetBox">
+                                Loading Available Assets...
                             </div>
                         </div>
                         <div class="display-box asset-container" id='assignedContainer'>
                             <div id="assignedAssetBox">
+                                Loading Assigned Assets...
                             </div>
                         </div>
                         <div class="display-box" id='assignAssetBox'>
@@ -106,15 +109,17 @@
                         </div>
                         <div class="display-box asset-container" id='issueContainer'>
                             <div id="issueBox">
+                                Loading Issues...
                             </div>
                         </div>
                         <div class="display-box asset-container" id='resolveContainer'>
                             <div id="resolveBox">
-                                Comment: <br>
-                                <input class='asset submit' required type="text" name="resolve" required><br>
-                                <input class='submit' type="submit" value='Resolve' id='resolveSubmit'>
-                                <input class='submit' type="submit" value='Cancel' id='resolveCancel'>
-                                
+                                <form action="javascript:" onsubmit="resolveIssue()">
+                                    Comment: <br>
+                                    <input class='asset submit' required type="text" name="resolve" id='resolveComment'><br>
+                                    <input class='submit' type="submit" value='Resolve' id='resolveSubmit'>
+                                    <input class='submit' type="button" value='Cancel' id='resolveCancel'>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -140,10 +145,6 @@
         $("#wrapper").toggleClass("toggled");
     });
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/locale/af.js"></script>
-    <script>
-        moment().format();
-    </script>
     <script type="text/javascript" src="/common/ajax-functions.js"></script>
     <script type="text/javascript" src="/control/superadminControl.client.js"></script>
     <script>
@@ -153,8 +154,8 @@
             const username = path.match(pattern)[0];
             
             const welcomeBox = document.getElementById('welcomeBox');
-            welcomeBox.innerHTML = `Welcome: ${username.toUpperCase()}`
-        })
+            welcomeBox.innerHTML = `Welcome: ${username.toUpperCase()}`;
+        });
     </script>
 
 </body>
