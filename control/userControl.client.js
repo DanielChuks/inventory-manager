@@ -11,7 +11,6 @@ $('#reportIssueButton').click(function() {
   closeWindows('reportIssueBox');
 });
 
-
 //close report box
 $('#reportCancel').click(function() {
   document.getElementById('reportIssueBox').style.display = 'none';
@@ -32,7 +31,7 @@ function createAssets(data){
         <p>Name: ${asset.name}</p>
         <p>Description: ${asset.description}</p>
         <p>Serial Number: ${asset.serialnumber}</p>
-        <p>Andela Serial Code: ${asset.serialcode}of</p>
+        <p>Andela Serial Code: ${asset.serialcode}</p>
         <p>Reclaim Date: ${asset.reclaimDate}</p>
       </div>`;
       }
@@ -64,6 +63,10 @@ function closeWindows(open){
   document.getElementById('reportIssueBox').style.display = 'none';
   document.getElementById('assetContainer').style.display = 'none';
   document.getElementById(open).style.display = 'block';
+}
+
+function reminder(){
+  
 }
 
 
