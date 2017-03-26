@@ -166,3 +166,12 @@
 .assign-submit, .unassign-submit, .submit, .resolve{
     color: black;
 }
+
+.reminder{
+    height: 200px;
+    width: 350px;
+    background: red;
+    position: fixed;
+    right: 0;
+    bottom: 0;
+}
